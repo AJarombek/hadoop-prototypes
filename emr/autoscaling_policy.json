@@ -1,0 +1,9 @@
+{
+  "Constraints": {
+    "MinCapacity": 1,
+    "MaxCapacity": 2
+  },
+  "Rules": [
+
+  ]
+}

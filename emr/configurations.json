@@ -1,0 +1,12 @@
+[
+  {
+    "Classification": "hadoop-env",
+    "Configurations": [],
+    "Properties": {}
+  },
+  {
+    "Classification": "spark-env",
+    "Configurations": [],
+    "Properties": {}
+  }
+]
