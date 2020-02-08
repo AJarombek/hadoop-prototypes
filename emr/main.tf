@@ -31,7 +31,7 @@ resource "aws_emr_cluster" "prototype-cluster" {
   name = "hadoop-prototypes-cluster"
   release_label = "emr-5.29.0"
   applications = ["Hadoop", "Pig", "Hive", "Spark"]
-  service_role = ""
+  service_role = aws_iam_role.emr-access-role.arn
 
   master_instance_group {
     instance_type = "m1.medium"
@@ -40,13 +40,10 @@ resource "aws_emr_cluster" "prototype-cluster" {
   core_instance_group {
     instance_type = "c1.medium"
     instance_count = 1
-
-    autoscaling_policy = file("autoscaling_policy.json")
   }
 
   termination_protection = false
-  keep_job_flow_alive_when_no_steps = "on"
-  step_concurrency_level = 1
+  log_uri = null
 
   configurations_json = file("configurations.json")
 
@@ -56,6 +53,13 @@ resource "aws_emr_cluster" "prototype-cluster" {
   }
 }
 
-resource "aws_iam_role" "emr-service-role" {
-  assume_role_policy = ""
+resource "aws_iam_role" "emr-access-role" {
+  name = "emr-access-role"
+  path = "/sandbox/hadoop-prototypes/"
+  assume_role_policy = file("assume_role_policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "emr-access-role-policy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole"
+  role = aws_iam_role.emr-access-role.name
 }
