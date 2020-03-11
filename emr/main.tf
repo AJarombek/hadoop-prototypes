@@ -42,6 +42,11 @@ resource "aws_emr_cluster" "prototype-cluster" {
     instance_count = 1
   }
 
+  ec2_attributes {
+    instance_profile = ""
+    key_name = ""
+  }
+
   termination_protection = false
   log_uri = null
 
