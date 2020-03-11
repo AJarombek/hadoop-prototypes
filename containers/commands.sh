@@ -6,7 +6,23 @@
 
 # I hope you realize how wonderful and sweet you are.
 
+# Check the custom config
+cd /etc/hadoop/conf
+ls -ltr
+more core-site.xml
+more hdfs-site.xml
+more mapred-site.xml
+more yarn-site.xml
+
+# Run the following commands from HADOOP_HOME using the hdfs user
 cd ${HADOOP_HOME}
+su hdfs
+
+# Check running Java processes.
+jps
+
+# Run a built-in sample Hadoop MapReduce job
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar pi 16 1000
 
 # These two commands are equivalent.  They both upload a CSV file into HDFS.
 hadoop fs -copyFromLocal march-exercise-data.csv /data/exercise

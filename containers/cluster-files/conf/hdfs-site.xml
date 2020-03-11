@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <!-- The replication factor is '1' because the cluster is in pseudo-distributed mode. -->
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+</configuration>
