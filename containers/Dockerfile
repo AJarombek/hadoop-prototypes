@@ -8,8 +8,10 @@ LABEL maintainer="andrew@jarombek.com" \
       version="1.0.0" \
       description="Dockerfile for a barebones Hadoop pseudo-distributed cluster"
 
+# Run all the container setup commands with the root user.
 USER root
 
+# Install SSH onto the container - a pre-req for Hadoop.
 RUN apt-get update \
     && apt-get -y dist-upgrade \
     && apt-get -y install openssh-server
@@ -18,6 +20,7 @@ RUN apt-get update \
 RUN apt-get -y install openjdk-8-jdk curl \
     && echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> .bash_profile
 
+# Set JAVA_HOME for easy Java usage.  Many projects in the Hadoop ecosystem are written in Java.
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 # SSH with no Passphrase
@@ -30,39 +33,38 @@ RUN curl -O http://mirrors.koehn.com/apache/hadoop/common/hadoop-3.2.1/hadoop-3.
     && mv hadoop-3.2.1 hadoop \
     && mv hadoop/ /usr/share/
 
+# Set convenience variables for the Hadoop installation directories.
 ENV HADOOP_HOME=/usr/share/hadoop
 ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
-COPY /cluster-files/ssh $HOME/.ssh/config
+# Set environment variables which allow HDFS and YARN to be run by the root user.
+ENV HDFS_NAMENODE_USER="root"
+ENV HDFS_DATANODE_USER="root"
+ENV HDFS_SECONDARYNAMENODE_USER="root"
+ENV YARN_RESOURCEMANAGER_USER="root"
+ENV YARN_NODEMANAGER_USER="root"
+
+# Set SSH configuration for the root user.
+COPY /cluster-files/ssh /home/root/.ssh/config
+RUN chmod 600 /home/root/.ssh/config
+
+# Copy Hadoop XML config files into the proper filesystem directory.
 COPY /cluster-files/conf /usr/share/hadoop/etc/hadoop/
 
-# Configure Hadoop
+# Configure Hadoop and set priveleges on Hadoop files
 RUN echo "HADOOP_HOME=/usr/share/hadoop" >> .bash_profile \
     && mkdir -p /etc/hadoop/conf \
     && sed -i "\$aexport JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" \
         $HADOOP_HOME/etc/hadoop/hadoop-env.sh \
     && ln -s $HADOOP_HOME/etc/hadoop/* /etc/hadoop/conf/ \
     && mkdir $HADOOP_HOME/logs \
-    && groupadd hadoop \
-    && useradd -g hadoop hdfs \
-    && useradd -g hadoop yarn \
-    && chgrp -R hadoop /usr/share/hadoop \
     && chmod -R 777 /usr/share/hadoop
 
-WORKDIR /usr/share/hadoop
-RUN bin/hdfs namenode -format \
-    && service ssh start \
-    && su hdfs \
-    && sbin/start-dfs.sh \
-    && su yarn \
-    && sbin/start-yarn.sh
+# Copy file used to bootstrap HDFS and YARN upon container startup into the sources bin directroy.
+COPY hadoop-init.sh /usr/share/hadoop/sbin
 
-RUN useradd andy \
-    && bin/hadoop fs -mkdir -p /user/andy \
-    && bin/hadoop fs -chown andy:andy /user/andy \
-    && bin/hadoop fs -mkdir /tmp \
-    && bin/hadoop fs -chmod 777 /tmp
-WORKDIR /
+# Copy demo files which are used in HDFS and MapReduce jobs.
+COPY /cluster-files/hdfs-data /usr/share/hadoop/usr/andy
 
 EXPOSE 8088
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT /usr/share/hadoop/sbin/hadoop-init.sh && tail -f /dev/null
