@@ -40,7 +40,7 @@ resource "null_resource" "key-gen" {
 resource "aws_emr_cluster" "prototype-cluster" {
   name = "hadoop-prototypes-cluster"
   release_label = "emr-5.29.0"
-  applications = ["Hadoop", "Pig", "Hive", "Spark"]
+  applications = ["Hadoop", "Pig", "Hive", "Hue", "Spark", "Sqoop", "HBase"]
   service_role = aws_iam_role.emr-access-role.arn
 
   master_instance_group {
@@ -57,6 +57,7 @@ resource "aws_emr_cluster" "prototype-cluster" {
     key_name = "emr-prototype-key"
 
     emr_managed_master_security_group = aws_security_group.emr-security-group.id
+    emr_managed_slave_security_group = aws_security_group.emr-security-group.id
   }
 
   termination_protection = false
@@ -93,6 +94,13 @@ resource "aws_security_group" "emr-security-group" {
     protocol = "tcp"
     from_port = 22
     to_port = 22
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    protocol = "-1"
+    to_port = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
