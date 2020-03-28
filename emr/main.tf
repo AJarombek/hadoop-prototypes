@@ -23,6 +23,16 @@ terraform {
 # Existing AWS Resources
 #-----------------------
 
+#--------------------------------------
+# Executed Before Resources are Created
+#--------------------------------------
+
+resource "null_resource" "key-gen" {
+  provisioner "local-exec" {
+    command = "bash key-gen.sh emr-prototype-key"
+  }
+}
+
 #----------------------
 # EMR Cluster Resources
 #----------------------
@@ -43,8 +53,10 @@ resource "aws_emr_cluster" "prototype-cluster" {
   }
 
   ec2_attributes {
-    instance_profile = ""
-    key_name = ""
+    instance_profile = aws_iam_instance_profile.emr-prototype-profile.arn
+    key_name = "emr-prototype-key"
+
+    emr_managed_master_security_group = aws_security_group.emr-security-group.id
   }
 
   termination_protection = false
@@ -67,4 +79,20 @@ resource "aws_iam_role" "emr-access-role" {
 resource "aws_iam_role_policy_attachment" "emr-access-role-policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole"
   role = aws_iam_role.emr-access-role.name
+}
+
+resource "aws_iam_instance_profile" "emr-prototype-profile" {
+  name = "emr_prototype_profile"
+  role = aws_iam_role.emr-access-role.name
+}
+
+resource "aws_security_group" "emr-security-group" {
+  name = "emr-security-group"
+
+  ingress {
+    protocol = "tcp"
+    from_port = 22
+    to_port = 22
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
