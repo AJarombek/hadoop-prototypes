@@ -65,10 +65,20 @@ resource "aws_emr_cluster" "prototype-cluster" {
 
   configurations_json = file("configurations.json")
 
+  bootstrap_action {
+    name = "cluster-setup"
+    path = "s3://hadoop-prototypes-assets/bootstrap.sh"
+  }
+
   tags = {
     Name = "sandbox-hadoop-prototypes-cluster"
     Environment = "sandbox"
   }
+
+  depends_on = [
+    aws_s3_bucket.hadoop-prototypes-assets,
+    aws_s3_bucket_object.create-sql
+  ]
 }
 
 resource "aws_iam_role" "emr-access-role" {
@@ -103,4 +113,40 @@ resource "aws_security_group" "emr-security-group" {
     to_port = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_s3_bucket" "hadoop-prototypes-assets" {
+  bucket = "hadoop-prototypes-assets"
+  acl = "private"
+  policy = file("policy.json")
+
+  versioning {
+    enabled = false
+  }
+
+  lifecycle_rule {
+    enabled = false
+  }
+
+  tags = {
+    Name = "hadoop-prototypes-assets"
+    Application = "hadoop-prototypes"
+    Environment = "all"
+  }
+}
+
+resource "aws_s3_bucket_object" "create-sql" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "sqoop/create.sql"
+  source = "cluster-files/create.sql"
+  etag = filemd5("${path.cwd}/cluster-files/create.sql")
+  content_type = "application/sql"
+}
+
+resource "aws_s3_bucket_object" "bootstrap-sh" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "bootstrap.sh"
+  source = "cluster-files/bootstrap.sh"
+  etag = filemd5("${path.cwd}/cluster-files/bootstrap.sh")
+  content_type = "application/octet-stream"
 }
