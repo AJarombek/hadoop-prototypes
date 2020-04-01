@@ -6,6 +6,17 @@ The Apache Hadoop ecosystem consists of many different technologies (including t
 platform).  All these technologies are used for processing big data.  This repository contains prototypes of 
 technologies in the hadoop landscape.
 
+### Directories
+
+| Directory Name    | Description                                                                 |
+|-------------------|-----------------------------------------------------------------------------|
+| `containers`      | Docker containers for running single-node Hadoop clusters.                  |
+| `emr`             | EMR (Amazon Elastic Map Reduce) cluster infrastructure.                     |
+| `hadoop`          | Hadoop MapReduce code.                                                      |
+| `hive`            | Hive SQL queries and scripts.                                               |
+| `pig`             | Apache Pig MapReduce abstraction library.                                   |
+| `sqoop`           | Apache Sqoop (SQL to Hadoop) scripts.                                       |
+
 ### Resources
 
 1) [Hadoop CentOS Container](https://github.com/sequenceiq/hadoop-docker)

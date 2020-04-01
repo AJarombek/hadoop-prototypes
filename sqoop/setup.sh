@@ -23,6 +23,9 @@ sqoop version
 # Install SQLite, the database from which Sqoop will ingest data and place it in HDFS
 sudo yum install -y sqlite-devel
 
+# Get the create.sql file from S3
+aws s3api get-object --bucket hadoop-prototypes-assets --key create.sql
+
 sqlite3 --version
 
 # Start the SQLite shell

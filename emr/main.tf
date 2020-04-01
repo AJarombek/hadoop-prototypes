@@ -41,7 +41,7 @@ resource "aws_emr_cluster" "prototype-cluster" {
   name = "hadoop-prototypes-cluster"
   release_label = "emr-5.29.0"
   applications = ["Hadoop", "Pig", "Hive", "Hue", "Spark", "Sqoop", "HBase"]
-  service_role = aws_iam_role.emr-access-role.arn
+  service_role = aws_iam_role.emr-cluster-access-role.arn
 
   master_instance_group {
     instance_type = "m1.medium"
@@ -53,7 +53,7 @@ resource "aws_emr_cluster" "prototype-cluster" {
   }
 
   ec2_attributes {
-    instance_profile = aws_iam_instance_profile.emr-prototype-profile.arn
+    instance_profile = aws_iam_instance_profile.emr-ec2-profile.arn
     key_name = "emr-prototype-key"
 
     emr_managed_master_security_group = aws_security_group.emr-security-group.id
@@ -77,24 +77,36 @@ resource "aws_emr_cluster" "prototype-cluster" {
 
   depends_on = [
     aws_s3_bucket.hadoop-prototypes-assets,
-    aws_s3_bucket_object.create-sql
+    aws_s3_bucket_object.create-sql,
+    aws_s3_bucket_object.bootstrap-sh
   ]
 }
 
-resource "aws_iam_role" "emr-access-role" {
-  name = "emr-access-role"
+resource "aws_iam_role" "emr-cluster-access-role" {
+  name = "emr-cluster-access-role"
   path = "/sandbox/hadoop-prototypes/"
-  assume_role_policy = file("assume_role_policy.json")
+  assume_role_policy = file("emr_assume_role_policy.json")
 }
 
-resource "aws_iam_role_policy_attachment" "emr-access-role-policy" {
+resource "aws_iam_role" "emr-ec2-access-role" {
+  name = "emr-ec2-access-role"
+  path = "/sandbox/hadoop-prototypes/"
+  assume_role_policy = file("ec2_assume_role_policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "emr-cluster-access-role-policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole"
-  role = aws_iam_role.emr-access-role.name
+  role = aws_iam_role.emr-cluster-access-role.name
 }
 
-resource "aws_iam_instance_profile" "emr-prototype-profile" {
+resource "aws_iam_role_policy_attachment" "emr-ec2-access-role-policy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role"
+  role = aws_iam_role.emr-ec2-access-role.name
+}
+
+resource "aws_iam_instance_profile" "emr-ec2-profile" {
   name = "emr_prototype_profile"
-  role = aws_iam_role.emr-access-role.name
+  role = aws_iam_role.emr-ec2-access-role.name
 }
 
 resource "aws_security_group" "emr-security-group" {
@@ -118,13 +130,9 @@ resource "aws_security_group" "emr-security-group" {
 resource "aws_s3_bucket" "hadoop-prototypes-assets" {
   bucket = "hadoop-prototypes-assets"
   acl = "private"
-  policy = file("policy.json")
+  policy = file("s3_policy.json")
 
   versioning {
-    enabled = false
-  }
-
-  lifecycle_rule {
     enabled = false
   }
 
