@@ -19,30 +19,33 @@ ACCUMULO_HOME='/var/lib/accumulo'
 export ACCUMULO_HOME
 
 sqoop version
+sqoop help
 
-# Install SQLite, the database from which Sqoop will ingest data and place it in HDFS
-sudo yum install -y sqlite-devel
+# Get command specific help with Sqoop
+sqoop import --help
 
-# Get the create.sql file from S3
-aws s3api get-object --bucket hadoop-prototypes-assets --key create.sql
+# MySQL is already installed on the cluster
+sudo mysql
 
-sqlite3 --version
+# -----------------
+# Begin MySQL Shell
+# -----------------
 
-# Start the SQLite shell
-sqlite3
+show databases
+use test
+show tables
 
-# ------------------
-# Begin SQLite Shell
-# ------------------
+source create.sql
 
-# See available commands
-.help
+# ---------------
+# End MySQL Shell
+# ---------------
 
-# List all the databases
-.databases
+wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.gz
+sudo cp mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar /usr/lib/sqoop/lib/
 
-.read create.sql
+# Check the port MySQL is running on
+netstat
+netstat -tulpn
 
-# ----------------
-# End SQLite Shell
-# ----------------
+sudo sqoop import --connect jdbc:mysql://172.31.23.200:3306/test --table core --m 1 --target-dir /test/core --direct

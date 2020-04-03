@@ -7,5 +7,3 @@
 mkdir /var/lib/accumulo
 ACCUMULO_HOME='/var/lib/accumulo'
 export ACCUMULO_HOME
-
-sudo yum install -y sqlite-devel
