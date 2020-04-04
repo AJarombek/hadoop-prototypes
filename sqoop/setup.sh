@@ -18,6 +18,9 @@ mkdir /var/lib/accumulo
 ACCUMULO_HOME='/var/lib/accumulo'
 export ACCUMULO_HOME
 
+# Get the create.sql file from S3
+aws s3api get-object --bucket hadoop-prototypes-assets --key sqoop/create.sql /home/hadoop/create.sql
+
 sqoop version
 sqoop help
 
@@ -31,9 +34,9 @@ sudo mysql
 # Begin MySQL Shell
 # -----------------
 
-show databases
+show databases;
 use test
-show tables
+show tables;
 
 source create.sql
 
@@ -42,10 +45,11 @@ source create.sql
 # ---------------
 
 wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.gz
+tar xvzf mysql-connector-java-5.1.48.tar.gz
 sudo cp mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar /usr/lib/sqoop/lib/
 
 # Check the port MySQL is running on
 netstat
 netstat -tulpn
 
-sudo sqoop import --connect jdbc:mysql://172.31.23.200:3306/test --table core --m 1 --target-dir /test/core --direct
+sudo sqoop import --connect jdbc:mysql://172.31.22.179:3306/test --table core --m 1 --target-dir /test/core --direct

@@ -103,5 +103,5 @@ INSERT INTO core (id, date, pushups, minutes) VALUES (9, '2020-03-27', 20, 6);
 INSERT INTO core (id, date, pushups, minutes) VALUES (10, '2020-03-28', 30, 8);
 
 -- Give all permissions to the user Sqoop runs from
-GRANT ALL ON core TO 'root'@'ip-172-31-23-200.ec2.internal';
-GRANT ALL ON runs TO 'root'@'ip-172-31-23-200.ec2.internal';
+GRANT ALL ON core TO 'root'@'ip-172-31-22-179.ec2.internal';
+GRANT ALL ON runs TO 'root'@'ip-172-31-22-179.ec2.internal';
