@@ -8,7 +8,15 @@ The following commands should be run after SSHing into the cluster.
 
 ```bash
 # Bash Shell
-netstat -tulpn
+MySQLAddress=$(sudo netstat -tulpn | grep -o '[0-9\.]\+:3306')
+MySQLAddress=${MySQLAddress::-5}
+echo ${MySQLAddress}
+
+MySQLAddressDashed=$(sed 's/\./-/g' <<< ${MySQLAddress})
+echo ${MySQLAddressDashed}
+
+sed -i "s/{MySQLAddressDashed}/${MySQLAddressDashed}/g" create.sql
+
 sudo mysql
 ```
 
@@ -17,15 +25,15 @@ sudo mysql
 use test;
 source create.sql
 
-GRANT ALL ON core TO 'root'@'ip-172-31-22-179.ec2.internal';
-GRANT ALL ON runs TO 'root'@'ip-172-31-22-179.ec2.internal';
+GRANT ALL ON core TO 'root'@'ip-172-31-94-142.ec2.internal';
+GRANT ALL ON runs TO 'root'@'ip-172-31-94-142.ec2.internal';
 
 # Ctrl-D to Exit MySQL.
 ```
 
 ```bash
 # Bash Shell
-sudo sqoop import --connect jdbc:mysql://172.31.22.179:3306/test --table core --m 1 --target-dir /test/core --direct
+sudo sqoop import --connect jdbc:mysql://${MySQLAddress}:3306/test --table core --m 1 --target-dir /test/core --direct
 ```
 
 ### Files

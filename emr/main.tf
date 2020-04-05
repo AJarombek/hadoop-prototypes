@@ -44,11 +44,11 @@ resource "aws_emr_cluster" "prototype-cluster" {
   service_role = aws_iam_role.emr-cluster-access-role.arn
 
   master_instance_group {
-    instance_type = "m5.xlarge"
+    instance_type = "m5.2xlarge"
   }
 
   core_instance_group {
-    instance_type = "c5.xlarge"
+    instance_type = "c5.2xlarge"
     instance_count = 1
   }
 
