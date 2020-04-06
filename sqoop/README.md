@@ -25,15 +25,15 @@ sudo mysql
 use test;
 source create.sql
 
-GRANT ALL ON core TO 'root'@'ip-172-31-94-142.ec2.internal';
-GRANT ALL ON runs TO 'root'@'ip-172-31-94-142.ec2.internal';
-
 # Ctrl-D to Exit MySQL.
 ```
 
 ```bash
 # Bash Shell
+sudo -u hdfs hdfs dfs -chmod 777 /
+
 sudo sqoop import --connect jdbc:mysql://${MySQLAddress}:3306/test --table core --m 1 --target-dir /test/core --direct
+sudo sqoop import --connect jdbc:mysql://${MySQLAddress}:3306/test --table runs --m 1 --target-dir /test/runs --direct
 ```
 
 ### Files

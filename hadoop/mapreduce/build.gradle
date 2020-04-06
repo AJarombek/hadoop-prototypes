@@ -1,0 +1,24 @@
+/**
+ * Gradle build file for the Hadoop MapReduce Java code.
+ * @author Andrew Jarombek
+ * @since 4/5/2020
+ */
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+version = '1.0'
+
+jar {
+    baseName = 'hadoop-prototypes'
+    version = '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}

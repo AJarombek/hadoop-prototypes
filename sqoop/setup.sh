@@ -76,6 +76,10 @@ sed -i "s/{MySQLAddressDashed}/${MySQLAddressDashed}/g" create.sql
 sudo -u hdfs hdfs dfs -chmod 777 /
 
 sudo sqoop import --connect jdbc:mysql://172.31.22.179:3306/test --table core --m 1 --target-dir /test/core --direct
+sudo sqoop import --connect jdbc:mysql://172.31.22.179:3306/test --table runs --m 1 --target-dir /test/runs --direct
+
+# Remove an existing directory recursively in HDFS.
+hdfs dfs -rm -r /test
 
 hadoop fs -ls /
 hadoop fs -ls /test
