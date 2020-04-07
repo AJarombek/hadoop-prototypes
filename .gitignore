@@ -1,2 +1,4 @@
 .idea/
 .terraform/
+.gradle/
+hadoop/mapreduce/build/

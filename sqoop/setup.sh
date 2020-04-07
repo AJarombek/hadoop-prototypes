@@ -8,6 +8,10 @@
 # https://console.aws.amazon.com/elasticmapreduce
 ssh -i ~/Documents/emr-prototype-key.pem hadoop@ec2-xxx.xxx.xxx.xxx.compute-1.amazonaws.com
 
+# Resolves 'too many authentication failures' SSH error.
+# https://www.tecmint.com/fix-ssh-too-many-authentication-failures-error/
+ssh -i ~/Documents/emr-prototype-key.pem -o IdentitiesOnly=yes hadoop@ec2-xxx.xxx.xxx.xxx.compute-1.amazonaws.com
+
 # Check the OS Version and Linux distribution (Amazon Linux/Fedora)
 cat /etc/os-release
 
