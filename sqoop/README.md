@@ -43,16 +43,23 @@ source create.sql
 ```bash
 # Bash Shell
 sudo -u hdfs hdfs dfs -chmod 777 /
+hdfs dfs -rm -r /test
 
 sudo sqoop import --connect jdbc:mysql://${MySQLAddress}:3306/test --table core --m 1 --target-dir /test/core --direct
 sudo sqoop import --connect jdbc:mysql://${MySQLAddress}:3306/test --table runs --m 1 --target-dir /test/runs --direct
+
+hadoop fs -ls /test/core
+hadoop fs -ls /test/runs
+
+hadoop fs -tail /test/core/part-m-00000
+hadoop fs -tail /test/runs/part-m-00000
 ```
 
 ### Files
 
 | Filename            | Description                                                                             |
 |---------------------|-----------------------------------------------------------------------------------------|
-| `setup.sh`          | Setup the EMR Cluster to use Sqoop.                                                     |
+| `commands.sh`       | Setup the EMR Cluster to use Sqoop.                                                     |
 | `sqlite-attempt.sh` | *[DEPRECATED]* Attempt to import data to HDFS using Sqoop and SQLite.                   |
 | `test.sql`          | SQL code run on the EMR Cluster.                                                        |
 

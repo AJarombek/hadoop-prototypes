@@ -161,8 +161,32 @@ resource "aws_s3_bucket_object" "bootstrap-sh" {
 
 resource "aws_s3_bucket_object" "mapreduce-1-0-jar" {
   bucket = aws_s3_bucket.hadoop-prototypes-assets.id
-  key = "mapreduce-1.0.jar"
+  key = "mapreduce/mapreduce-1.0.jar"
   source = "cluster-files/mapreduce-1.0.jar"
   etag = filemd5("${path.cwd}/cluster-files/mapreduce-1.0.jar")
   content_type = "application/java-archive"
+}
+
+resource "aws_s3_bucket_object" "running-log-driver-java" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/RunningLogDriver.java"
+  source = "cluster-files/RunningLogDriver.java"
+  etag = filemd5("${path.cwd}/cluster-files/RunningLogDriver.java")
+  content_type = "text/plain"
+}
+
+resource "aws_s3_bucket_object" "running-log-mapper-java" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/RunningLogMapper.java"
+  source = "cluster-files/RunningLogMapper.java"
+  etag = filemd5("${path.cwd}/cluster-files/RunningLogMapper.java")
+  content_type = "text/plain"
+}
+
+resource "aws_s3_bucket_object" "running-log-reducer-java" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/RunningLogReducer.java"
+  source = "cluster-files/RunningLogReducer.java"
+  etag = filemd5("${path.cwd}/cluster-files/RunningLogReducer.java")
+  content_type = "text/plain"
 }

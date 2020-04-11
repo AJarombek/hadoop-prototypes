@@ -19,7 +19,8 @@ public class RunningLogDriver extends Configured implements Tool {
 
     @Override
     public int run(String[] args) throws Exception {
-        if (args.length != 2) {
+        if (args.length < 2) {
+            System.out.printf("Args: %d\n", args.length);
             System.out.printf("Usage: %s [generic options] <inputdir> <outputdir>\n", getClass().getSimpleName());
             return -1;
         }

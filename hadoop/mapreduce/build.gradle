@@ -15,7 +15,7 @@ version = '1.0'
 
 jar {
     manifest {
-        attributes "Main-Class": "src.RunningLogDriver"
+        attributes "Main-Class": "RunningLogDriver"
     }
     
     from {
@@ -41,10 +41,15 @@ dependencies {
 }
 
 // Create a custom task to copy the jar file generated to the EMR cluster-files directory.
-task copyJarToBin(type: Copy, dependsOn: ['jar']) {
+task copyJarToCluster(type: Copy, dependsOn: ['jar']) {
     from jar
     into '../../emr/cluster-files'
 }
 
+task copySourceToCluster(type: Copy) {
+    from 'src'
+    into '../../emr/cluster-files'
+}
+
 mainClassName = 'RunningLogDriver'
-defaultTasks 'compileJava', 'jar', 'copyJarToBin'
+defaultTasks 'compileJava', 'jar', 'copyJarToCluster', 'copySourceToCluster'

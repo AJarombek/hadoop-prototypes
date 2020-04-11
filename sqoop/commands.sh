@@ -22,8 +22,9 @@ mkdir /var/lib/accumulo
 ACCUMULO_HOME='/var/lib/accumulo'
 export ACCUMULO_HOME
 
-# Get the create.sql file from S3
+# Get the create.sql and mapreduce.jar files from S3
 aws s3api get-object --bucket hadoop-prototypes-assets --key sqoop/create.sql /home/hadoop/create.sql
+aws s3api get-object --bucket hadoop-prototypes-assets --key mapreduce/mapreduce-1.0.jar /home/hadoop/mapreduce-1.0.jar
 
 sqoop version
 sqoop help
@@ -93,9 +94,18 @@ sudo -u hdfs hdfs dfs -chmod 777 /
 sudo sqoop import --connect jdbc:mysql://172.31.22.179:3306/test --table core --m 1 --target-dir /test/core --direct
 sudo sqoop import --connect jdbc:mysql://172.31.22.179:3306/test --table runs --m 1 --target-dir /test/runs --direct
 
+# With dynamic MySQL IP address
+sudo sqoop import --connect jdbc:mysql://${MySQLAddress}:3306/test --table core --m 1 --target-dir /test/core --direct
+sudo sqoop import --connect jdbc:mysql://${MySQLAddress}:3306/test --table runs --m 1 --target-dir /test/runs --direct
+
 # Remove an existing directory recursively in HDFS.
 hdfs dfs -rm -r /test
 
 hadoop fs -ls /
 hadoop fs -ls /test
 hadoop fs -ls /test/core
+hadoop fs -ls /test/runs
+
+# Check and confirm that the SQL data is now in HDFS.
+hadoop fs -tail /test/core/part-m-00000
+hadoop fs -tail /test/runs/part-m-00000
