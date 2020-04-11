@@ -12,8 +12,8 @@ technologies in the hadoop landscape.
 |-------------------|-----------------------------------------------------------------------------|
 | `containers`      | Docker containers for running single-node Hadoop clusters.                  |
 | `emr`             | EMR (Amazon Elastic Map Reduce) cluster infrastructure.                     |
-| `hadoop`          | Hadoop MapReduce code.                                                      |
 | `hive`            | Hive SQL queries and scripts.                                               |
+| `mapreduce`       | Hadoop MapReduce code.                                                      |
 | `pig`             | Apache Pig MapReduce abstraction library.                                   |
 | `sqoop`           | Apache Sqoop (SQL to Hadoop) scripts.                                       |
 

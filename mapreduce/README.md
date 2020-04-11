@@ -12,7 +12,8 @@ Code specific to the Hadoop data storage and processing platform.
 
 | Filename          | Description                                                                 |
 |-------------------|-----------------------------------------------------------------------------|
-| `mapreduce`       | Code specific to writing Hadoop MapReduce jobs.                             |
+| `pushups`         | Code specific to a Hadoop MapReduce job for pushup totals per month.        |
+| `runninglocation` | Code specific to a Hadoop MapReduce job for miles run at given locations.   |
 | `commands.sh`     | Bash commands to run MapReduce jobs.                                        |
 
 ### Resources

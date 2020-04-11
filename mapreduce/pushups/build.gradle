@@ -1,0 +1,40 @@
+/**
+ * Gradle build file for the Hadoop MapReduce Java code.
+ * @author Andrew Jarombek
+ * @since 4/11/2020
+ */
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = 1.8
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.apache.hadoop:hadoop-client:3.2.1'
+    implementation 'org.apache.hadoop:hadoop-common:3.2.1'
+}
+
+// Custom task to copy the source code to a location where it can be uploaded to S3 and the EMR cluster.
+task copySourceToCluster(type: Copy) {
+    from 'src'
+    into '../../emr/cluster-files'
+}
+
+mainClassName = 'PushupsDriver'
+defaultTasks 'copySourceToCluster'

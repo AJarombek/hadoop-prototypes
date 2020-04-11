@@ -1,6 +1,6 @@
 ### Overview
 
-Source code the MapReduce Java/Gradle project.
+Source code for the MapReduce Java/Gradle project that computes the total miles run at each location.
 
 ### Files
 

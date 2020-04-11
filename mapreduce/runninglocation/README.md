@@ -1,6 +1,6 @@
 ### Overview
 
-Root directory of the MapReduce Java/Gradle project.
+Root directory of the MapReduce Java/Gradle project for computing the total miles run at each location.
 
 ### Files
 

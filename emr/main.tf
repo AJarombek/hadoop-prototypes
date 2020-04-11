@@ -190,3 +190,35 @@ resource "aws_s3_bucket_object" "running-log-reducer-java" {
   etag = filemd5("${path.cwd}/cluster-files/RunningLogReducer.java")
   content_type = "text/plain"
 }
+
+resource "aws_s3_bucket_object" "pushups-driver-java" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/PushupsDriver.java"
+  source = "cluster-files/PushupsDriver.java"
+  etag = filemd5("${path.cwd}/cluster-files/PushupsDriver.java")
+  content_type = "text/plain"
+}
+
+resource "aws_s3_bucket_object" "pushups-mapper-java" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/PushupsMapper.java"
+  source = "cluster-files/PushupsMapper.java"
+  etag = filemd5("${path.cwd}/cluster-files/PushupsMapper.java")
+  content_type = "text/plain"
+}
+
+resource "aws_s3_bucket_object" "pushups-partitioner-java" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/PushupsPartitioner.java"
+  source = "cluster-files/PushupsPartitioner.java"
+  etag = filemd5("${path.cwd}/cluster-files/PushupsPartitioner.java")
+  content_type = "text/plain"
+}
+
+resource "aws_s3_bucket_object" "pushups-reducer-java" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/PushupsReducer.java"
+  source = "cluster-files/PushupsReducer.java"
+  etag = filemd5("${path.cwd}/cluster-files/PushupsReducer.java")
+  content_type = "text/plain"
+}
