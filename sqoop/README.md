@@ -70,3 +70,5 @@ hadoop fs -tail /test/runs/part-m-00000
 3) [Sqoop JDBC Support](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-sqoop-considerations.html#sqoop-supported-drivers-databases)
 4) [MySQL Sqoop Tutorial](https://medium.com/@oguzkircicek/i%CC%87mporting-data-from-mysql-into-hdfs-using-sqoop-on-cloudera-30cac8678917)
 5) [MapReduce Write Access Denied](https://community.cloudera.com/t5/Support-Questions/Permission-denied-user-mapred-access-WRITE-inode-quot-quot/td-p/16318)
+6) [Get EMR Non-Master Nodes](https://stackoverflow.com/a/55482524)
+7) [Grep First Match](https://unix.stackexchange.com/questions/57876/how-to-print-only-the-first-match-with-grep)

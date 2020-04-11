@@ -32,7 +32,7 @@ dependencies {
 
 // Custom task to copy the source code to a location where it can be uploaded to S3 and the EMR cluster.
 task copySourceToCluster(type: Copy) {
-    from 'src'
+    from 'src/*.java'
     into '../../emr/cluster-files'
 }
 

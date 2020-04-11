@@ -47,7 +47,7 @@ task copyJarToCluster(type: Copy, dependsOn: ['jar']) {
 }
 
 task copySourceToCluster(type: Copy) {
-    from 'src'
+    from 'src/*.java'
     into '../../emr/cluster-files'
 }
 

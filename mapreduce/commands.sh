@@ -14,6 +14,9 @@ hadoop fs -ls /user/hadoop/
 # Extract the class files in the jar file for debugging
 jar -xf mapreduce-1.0.jar
 
+# Check Java file contents.
+tail -n 50 RunningLogReducer.java
+
 # Or work with the Java files directly, first turning them into a jar.
 javac -classpath `/usr/lib/hadoop/bin/hadoop classpath` \
     RunningLogDriver.java RunningLogMapper.java RunningLogReducer.java
@@ -29,3 +32,4 @@ hadoop jar mapreduce.jar RunningLogDriver -D mapreduce.job.reduces=2 /test/runs 
 
 # Check if the MapReduce job was successful.
 hadoop fs -ls /test/locations
+hadoop fs -tail /test/locations/part-r-00000

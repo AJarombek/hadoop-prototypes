@@ -149,6 +149,14 @@ INSERT INTO core (id, date, pushups, minutes) VALUES (7, '2020-03-25', 20, 6);
 INSERT INTO core (id, date, pushups, minutes) VALUES (8, '2020-03-26', 20, 6);
 INSERT INTO core (id, date, pushups, minutes) VALUES (9, '2020-03-27', 20, 6);
 INSERT INTO core (id, date, pushups, minutes) VALUES (10, '2020-03-28', 30, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (11, '2020-03-29', 30, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (12, '2020-03-30', 30, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (13, '2020-03-31', 20, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (14, '2020-04-01', 35, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (15, '2020-04-02', 20, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (16, '2020-04-03', 20, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (17, '2020-04-04', 20, 8);
+INSERT INTO core (id, date, pushups, minutes) VALUES (18, '2020-04-05', 20, 8);
 
 -- Give all permissions to the user Sqoop runs from
 GRANT ALL ON core TO 'root'@'ip-{MySQLAddressDashed}.ec2.internal';
