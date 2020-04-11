@@ -33,62 +33,110 @@ CREATE TABLE core (
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    1, 'North Mianus School Run', 'Riverside, CT', '2020-03-19', 3.83, NULL, NULL, NULL
+    1, 'North Mianus School Run', 'Riverside - CT', '2020-03-19', 3.83, NULL, NULL, NULL
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace, description
 ) VALUES (
-    2, 'Central Park Exploratory Run', 'New York, NY', '2020-03-20', 5.95, 36, 47, '6:11',
+    2, 'Central Park Exploratory Run', 'New York - NY', '2020-03-20', 5.95, 36, 47, '6:11',
     'Too fast, not used to the road being so flat.'
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    3, 'Central Park Full Loop', 'New York, NY', '2020-03-21', 6.65, 44, 46, '6:48'
+    3, 'Central Park Full Loop', 'New York - NY', '2020-03-21', 6.65, 44, 46, '6:48'
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    4, 'Central Park Half Loop', 'New York, NY', '2020-03-22', 3.87, 24, 46, '6:33'
+    4, 'Central Park Half Loop', 'New York - NY', '2020-03-22', 3.87, 24, 46, '6:33'
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    5, 'Central Park Half Loop', 'New York, NY', '2020-03-23', 3.87, NULL, NULL, NULL
+    5, 'Central Park Half Loop', 'New York - NY', '2020-03-23', 3.87, NULL, NULL, NULL
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    6, 'Central Park Half Loop', 'New York, NY', '2020-03-24', 3.82, 24, 55, '6:31'
+    6, 'Central Park Half Loop', 'New York - NY', '2020-03-24', 3.82, 24, 55, '6:31'
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    7, 'Central Park Half Loop', 'New York, NY', '2020-03-25', 3.77, 26, 49, '7:06'
+    7, 'Central Park Half Loop', 'New York - NY', '2020-03-25', 3.77, 26, 49, '7:06'
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    8, 'Central Park Half Loop', 'New York, NY', '2020-03-26', 3.74, 24, 05, '6:27'
+    8, 'Central Park Half Loop', 'New York - NY', '2020-03-26', 3.74, 24, 05, '6:27'
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace
 ) VALUES (
-    9, 'Central Park Half Loop', 'New York, NY', '2020-03-27', 3.93, 25, 53, '6:34'
+    9, 'Central Park Half Loop', 'New York - NY', '2020-03-27', 3.93, 25, 53, '6:34'
 );
 
 INSERT INTO runs (
     id, name, location, date, miles, minutes, seconds, pace, description
 ) VALUES (
-    10, 'Central Park Full Loop', 'New York, NY', '2020-03-28', 6.18, 41, 31, '6:18', 'Quiet in the rain.'
+    10, 'Central Park Full Loop', 'New York - NY', '2020-03-28', 6.18, 41, 31, '6:18', 'Quiet in the rain.'
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    11, 'Central Park South + Reservoir Half Loop', 'New York - NY', '2020-03-29', 4.79, NULL, NULL, NULL
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    12, 'Central Park South + Reservoir Half Loop', 'New York - NY', '2020-03-30', 4.79, 32, 41, '6:50'
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    13, 'Central Park South + Reservoir Half-Loop', 'New York - NY', '2020-03-31', 4.71, 33, 24, '7:05'
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    14, 'Central Park South + Reservoir Half Loop', 'New York - NY', '2020-04-01', 4.72, 31, 28, '6:40'
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    15, 'Central Park South + Reservoir Half Loop', 'New York - NY', '2020-04-02', 4.72, NULL, NULL, NULL
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    16, 'Central Park South + Reservoir Half Loop', 'New York - NY', '2020-04-03', 4.76, 32, 15, '6:46'
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    17, 'Central Park South + Reservoir Half Loop', 'New York - NY', '2020-04-04', 4.80, 31, 43, '6:36'
+);
+
+INSERT INTO runs (
+    id, name, location, date, miles, minutes, seconds, pace
+) VALUES (
+    18, 'Central Park South + Reservoir Full Loop', 'New York - NY', '2020-04-05', 6.00, 40, 17, '6:42'
 );
 
 INSERT INTO core (id, date, pushups, minutes) VALUES (1, '2020-03-19', 0, 0);

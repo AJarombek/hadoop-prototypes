@@ -1,7 +1,7 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -36,9 +36,9 @@ public class RunningLogDriver extends Configured implements Tool {
         job.setReducerClass(RunningLogReducer.class);
 
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(IntWritable.class);
+        job.setMapOutputValueClass(FloatWritable.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setOutputValueClass(FloatWritable.class);
 
         boolean success = job.waitForCompletion(true);
         return success ? 0 : 1;

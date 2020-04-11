@@ -2,11 +2,18 @@
 
 Code specific to the Hadoop data storage and processing platform.
 
-### Directories
+### Commands
 
-| Directory Name    | Description                                                                 |
+```bash
+
+```
+
+### Files
+
+| Filename          | Description                                                                 |
 |-------------------|-----------------------------------------------------------------------------|
 | `mapreduce`       | Code specific to writing Hadoop MapReduce jobs.                             |
+| `commands.sh`     | Bash commands to run MapReduce jobs.                                        |
 
 ### Resources
 
