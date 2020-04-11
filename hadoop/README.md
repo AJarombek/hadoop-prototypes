@@ -5,7 +5,20 @@ Code specific to the Hadoop data storage and processing platform.
 ### Commands
 
 ```bash
+javac -classpath `/usr/lib/hadoop/bin/hadoop classpath` \
+    RunningLogDriver.java RunningLogMapper.java RunningLogReducer.java
+    
+jar cvf mapreduce.jar RunningLogDriver.class RunningLogMapper.class RunningLogReducer.class
 
+rm *.class
+hadoop fs -rm -r /test/locations
+
+# Run the MapReduce job.
+hadoop jar mapreduce.jar RunningLogDriver -D mapreduce.job.reduces=2 /test/runs /test/locations
+
+# Check if the MapReduce job was successful.
+hadoop fs -ls /test/locations
+hadoop fs -tail /test/locations/part-r-00000
 ```
 
 ### Files

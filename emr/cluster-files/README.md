@@ -1,11 +1,11 @@
 ### Overview
 
-Files which belong on the EMR cluster's master node.  In order to get on the master node EC2 instance, they are first 
-placed in an S3 bucket and then downloaded.
+Source code the MapReduce Java/Gradle project.
 
 ### Files
 
-| Filename                   | Description                                                                             |
-|----------------------------|-----------------------------------------------------------------------------------------|
-| `bootstrap.sh`             | Bash script that runs when the master node is initially booted up.                      |
-| `create.sql`               | SQL script to initialize data in the master node's MySQL database instance.             |
+| Filename                  | Description                                                                             |
+|---------------------------|-----------------------------------------------------------------------------------------|
+| `RunningLogDriver.java`   | Sets up and starts the MapReduce program.                                               |
+| `RunningLogMapper.java`   | Contains the `map()` method of the MapReduce program.                                   |
+| `RunningLogReducer.java`  | Contains the `reduce()` method of the MapReduce program.                                |
