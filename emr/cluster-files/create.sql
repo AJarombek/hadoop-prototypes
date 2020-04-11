@@ -105,5 +105,5 @@ INSERT INTO core (id, date, pushups, minutes) VALUES (10, '2020-03-28', 30, 8);
 -- Give all permissions to the user Sqoop runs from
 GRANT ALL ON core TO 'root'@'ip-{MySQLAddressDashed}.ec2.internal';
 GRANT ALL ON runs TO 'root'@'ip-{MySQLAddressDashed}.ec2.internal';
-GRANT ALL ON core TO 'yarn'@'ip-{MySQLAddressDashed}.ec2.internal';
-GRANT ALL ON runs TO 'yarn'@'ip-{MySQLAddressDashed}.ec2.internal';
+GRANT ALL ON core TO 'yarn'@'ip-{YARNAddress}.ec2.internal';
+GRANT ALL ON runs TO 'yarn'@'ip-{YARNAddress}.ec2.internal';

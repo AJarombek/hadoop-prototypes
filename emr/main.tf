@@ -158,3 +158,11 @@ resource "aws_s3_bucket_object" "bootstrap-sh" {
   etag = filemd5("${path.cwd}/cluster-files/bootstrap.sh")
   content_type = "application/octet-stream"
 }
+
+resource "aws_s3_bucket_object" "mapreduce-1-0-jar" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce-1.0.jar"
+  source = "cluster-files/mapreduce-1.0.jar"
+  etag = filemd5("${path.cwd}/cluster-files/mapreduce-1.0.jar")
+  content_type = "application/java-archive"
+}

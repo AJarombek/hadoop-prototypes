@@ -12,3 +12,9 @@ gradle --version
 
 # Find the gradle installation directory
 which gradle
+
+# List the tasks Gradle can execute
+gradle tasks
+
+# Execute the default Gradle tasks defined in build.gradle
+gradle

@@ -64,10 +64,20 @@ sudo netstat -tulpn | grep 3306 | grep -o '[0-9\.]\+:3306'
 sudo netstat -tulpn | grep -o '[0-9\.]\+:3306'
 MySQLAddress=$(sudo netstat -tulpn | grep -o '[0-9\.]\+:3306')
 
+# Get the non-master node IP addresses
+yarn node -list
+yarn node -list | grep -o 'ip-[0-9\-]\+'
+yarn node -list | grep -o 'ip-[0-9\-]\+' | grep -m 1 '^ip[0-9\-]\+'
+YARNAddress=$(yarn node -list | grep -o 'ip-[0-9\-]\+' | grep -m 1 '^ip[0-9\-]\+')
+
 # Get Just the IP Address
 echo ${MySQLAddress::-5}
 MySQLAddress=${MySQLAddress::-5}
 echo ${MySQLAddress}
+
+echo ${YARNAddress:3}
+YARNAddress=${YARNAddress:3}
+echo ${YARNAddress}
 
 # Replace the '.' characters with '-'.
 echo $(sed 's/\./-/g' <<< ${MySQLAddress})
@@ -75,6 +85,7 @@ MySQLAddressDashed=$(sed 's/\./-/g' <<< ${MySQLAddress})
 echo ${MySQLAddressDashed}
 
 sed -i "s/{MySQLAddressDashed}/${MySQLAddressDashed}/g" create.sql
+sed -i "s/{YARNAddress}/${YARNAddress}/g" create.sql
 
 # Set proper directory permissions for HDFS.
 sudo -u hdfs hdfs dfs -chmod 777 /

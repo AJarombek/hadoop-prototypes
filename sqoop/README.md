@@ -4,6 +4,13 @@ Scripts used to import data to HDFS on a Hadoop Cluster using Sqoop and MySQL.
 
 ### Commands
 
+First, SSH into the cluster.
+
+```bash
+sudo -s
+ssh -i ~/Documents/emr-prototype-key.pem -o IdentitiesOnly=yes hadoop@ec2-xx-xx-xx-xx.compute-1.amazonaws.com
+```
+
 The following commands should be run after SSHing into the cluster.
 
 ```bash
@@ -15,7 +22,12 @@ echo ${MySQLAddress}
 MySQLAddressDashed=$(sed 's/\./-/g' <<< ${MySQLAddress})
 echo ${MySQLAddressDashed}
 
+YARNAddress=$(yarn node -list | grep -o 'ip-[0-9\-]\+' | grep -m 1 '^ip[0-9\-]\+')
+YARNAddress=${YARNAddress:3}
+echo ${YARNAddress}
+
 sed -i "s/{MySQLAddressDashed}/${MySQLAddressDashed}/g" create.sql
+sed -i "s/{YARNAddress}/${YARNAddress}/g" create.sql
 
 sudo mysql
 ```

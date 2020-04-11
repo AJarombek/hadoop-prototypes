@@ -14,8 +14,13 @@ sourceCompatibility = 1.8
 version = '1.0'
 
 jar {
-    baseName = 'hadoop-prototypes'
-    version = '0.1.0'
+    manifest {
+        attributes "Main-Class": "src.RunningLogDriver"
+    }
+    
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 repositories {
@@ -35,5 +40,11 @@ dependencies {
     implementation 'org.apache.hadoop:hadoop-common:3.2.1'
 }
 
+// Create a custom task to copy the jar file generated to the EMR cluster-files directory.
+task copyJarToBin(type: Copy, dependsOn: ['jar']) {
+    from jar
+    into '../../emr/cluster-files'
+}
+
 mainClassName = 'RunningLogDriver'
-defaultTasks 'compileJava', 'run'
+defaultTasks 'compileJava', 'jar', 'copyJarToBin'
