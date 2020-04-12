@@ -4,6 +4,12 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
+/**
+ * Reducer which executes reduce() tasks in the 'RunningLog' Hadoop MapReduce job.
+ * @author Andrew Jarombek
+ * @since 4/11/2020
+ */
+
 public class RunningLogReducer extends Reducer<Text, FloatWritable, Text, FloatWritable> {
 
     private FloatWritable sumWritable = new FloatWritable();
