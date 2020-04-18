@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Reducer which executes reduce() tasks in the 'RunLength' Hadoop MapReduce job.  Uses the Hadoop Streaming API.

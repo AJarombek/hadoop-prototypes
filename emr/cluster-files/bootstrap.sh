@@ -29,3 +29,9 @@ aws s3api get-object --bucket hadoop-prototypes-assets --key mapreduce/PushupsRe
     /home/hadoop/PushupsReducer.java
 aws s3api get-object --bucket hadoop-prototypes-assets --key mapreduce/PushupsPartitioner.java \
     /home/hadoop/PushupsPartitioner.java
+
+# Get the Run Length MapReduce Streaming API job files from S3
+aws s3api get-object --bucket hadoop-prototypes-assets --key mapreduce/RunLengthMapper.py \
+    /home/hadoop/RunLengthMapper.py
+aws s3api get-object --bucket hadoop-prototypes-assets --key mapreduce/RunLengthReducer.py \
+    /home/hadoop/RunLengthReducer.py

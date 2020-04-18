@@ -35,7 +35,7 @@ hadoop fs -ls /test/locations
 hadoop fs -tail /test/locations/part-r-00000
 
 # Run a Hadoop Streaming API job
-hadoop jar /usr/lib/hadoop/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+hadoop jar /usr/lib/hadoop/hadoop-streaming.jar \
     -input /test/runs \
     -output /test/lengths \
     -mapper RunLengthMapper.py \

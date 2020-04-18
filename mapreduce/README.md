@@ -18,6 +18,7 @@ jar cvf mapreduce2.jar PushupsDriver.class PushupsMapper.class PushupsReducer.cl
 rm *.class
 hadoop fs -rm -r /test/locations
 hadoop fs -rm -r /test/pushups
+hadoop fs -rm -r /test/lengths
 
 # Run the first MapReduce job.
 hadoop jar mapreduce.jar RunningLogDriver -D mapreduce.job.reduces=2 /test/runs /test/locations
@@ -31,7 +32,27 @@ hadoop jar mapreduce2.jar PushupsDriver -D mapreduce.job.reduces=2 /test/core /t
 
 # Check if the first MapReduce job was successful.
 hadoop fs -ls /test/pushups
+
+# March results.
 hadoop fs -tail /test/pushups/part-r-00000
+
+# April results.
+hadoop fs -tail /test/pushups/part-r-00000
+
+# Run a Hadoop Streaming API job
+hadoop jar /usr/lib/hadoop/hadoop-streaming.jar \
+    -
+    -input /test/runs \
+    -output /test/lengths \
+    -mapper RunLengthMapper.py \
+    -reducer RunLengthReducer.py \
+    -file RunLengthMapper.py \
+    -file RunLengthReducer.py
+
+hadoop fs -ls /test/lengths
+hadoop fs -tail /test/lengths/part-00000
+hadoop fs -tail /test/lengths/part-00001
+hadoop fs -tail /test/lengths/part-00002
 ```
 
 ### Files
