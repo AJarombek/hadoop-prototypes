@@ -159,11 +159,11 @@ resource "aws_s3_bucket_object" "bootstrap-sh" {
   content_type = "application/octet-stream"
 }
 
-resource "aws_s3_bucket_object" "mapreduce-1-0-jar" {
+resource "aws_s3_bucket_object" "runninglocation-1-0-jar" {
   bucket = aws_s3_bucket.hadoop-prototypes-assets.id
-  key = "mapreduce/mapreduce-1.0.jar"
-  source = "cluster-files/mapreduce-1.0.jar"
-  etag = filemd5("${path.cwd}/cluster-files/mapreduce-1.0.jar")
+  key = "mapreduce/runninglocation-1.0.jar"
+  source = "cluster-files/runninglocation-1.0.jar"
+  etag = filemd5("${path.cwd}/cluster-files/runninglocation-1.0.jar")
   content_type = "application/java-archive"
 }
 
@@ -220,5 +220,21 @@ resource "aws_s3_bucket_object" "pushups-reducer-java" {
   key = "mapreduce/PushupsReducer.java"
   source = "cluster-files/PushupsReducer.java"
   etag = filemd5("${path.cwd}/cluster-files/PushupsReducer.java")
+  content_type = "text/plain"
+}
+
+resource "aws_s3_bucket_object" "run-length-mapper-py" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/RunLengthMapper.py"
+  source = "cluster-files/RunLengthMapper.py"
+  etag = filemd5("${path.cwd}/cluster-files/RunLengthMapper.py")
+  content_type = "text/plain"
+}
+
+resource "aws_s3_bucket_object" "run-length-reducer-py" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/RunLengthReducer.py"
+  source = "cluster-files/RunLengthReducer.py"
+  etag = filemd5("${path.cwd}/cluster-files/RunLengthReducer.py")
   content_type = "text/plain"
 }

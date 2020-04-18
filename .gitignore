@@ -1,6 +1,7 @@
 .idea/
 .terraform/
 .gradle/
-hadoop/mapreduce/build/
-emr/cluster-files/mapreduce-1.0.jar
+mapreduce/runninglocation/build/
+emr/cluster-files/runninglocation-1.0.jar
 emr/cluster-files/*.java
+emr/cluster-files/*.py

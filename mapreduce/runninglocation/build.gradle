@@ -47,8 +47,9 @@ task copyJarToCluster(type: Copy, dependsOn: ['jar']) {
 }
 
 task copySourceToCluster(type: Copy) {
-    from 'src/*.java'
+    from 'src'
     into '../../emr/cluster-files'
+    exclude '**/README.md'
 }
 
 mainClassName = 'RunningLogDriver'

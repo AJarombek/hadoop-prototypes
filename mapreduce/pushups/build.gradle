@@ -32,8 +32,9 @@ dependencies {
 
 // Custom task to copy the source code to a location where it can be uploaded to S3 and the EMR cluster.
 task copySourceToCluster(type: Copy) {
-    from 'src/*.java'
+    from 'src'
     into '../../emr/cluster-files'
+    exclude '**/README.md'
 }
 
 mainClassName = 'PushupsDriver'

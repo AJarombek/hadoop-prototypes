@@ -33,3 +33,12 @@ hadoop jar mapreduce.jar RunningLogDriver -D mapreduce.job.reduces=2 /test/runs 
 # Check if the MapReduce job was successful.
 hadoop fs -ls /test/locations
 hadoop fs -tail /test/locations/part-r-00000
+
+# Run a Hadoop Streaming API job
+hadoop jar /usr/lib/hadoop/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+    -input /test/runs \
+    -output /test/lengths \
+    -mapper RunLengthMapper.py \
+    -reducer RunLengthReducer.py \
+    -file RunLengthMapper.py \
+    -file RunLengthReducer.py
