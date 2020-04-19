@@ -143,13 +143,7 @@ resource "aws_s3_bucket" "hadoop-prototypes-assets" {
   }
 }
 
-resource "aws_s3_bucket_object" "create-sql" {
-  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
-  key = "sqoop/create.sql"
-  source = "cluster-files/create.sql"
-  etag = filemd5("${path.cwd}/cluster-files/create.sql")
-  content_type = "application/sql"
-}
+/* EMR cluster files */
 
 resource "aws_s3_bucket_object" "bootstrap-sh" {
   bucket = aws_s3_bucket.hadoop-prototypes-assets.id
@@ -158,6 +152,18 @@ resource "aws_s3_bucket_object" "bootstrap-sh" {
   etag = filemd5("${path.cwd}/cluster-files/bootstrap.sh")
   content_type = "application/octet-stream"
 }
+
+/* Sqoop/MySQL files */
+
+resource "aws_s3_bucket_object" "create-sql" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "sqoop/create.sql"
+  source = "cluster-files/create.sql"
+  etag = filemd5("${path.cwd}/cluster-files/create.sql")
+  content_type = "application/sql"
+}
+
+/* Java Hadoop MapReduce files */
 
 resource "aws_s3_bucket_object" "runninglocation-1-0-jar" {
   bucket = aws_s3_bucket.hadoop-prototypes-assets.id
@@ -223,6 +229,8 @@ resource "aws_s3_bucket_object" "pushups-reducer-java" {
   content_type = "text/plain"
 }
 
+/* Python Hadoop Streaming API files */
+
 resource "aws_s3_bucket_object" "run-length-mapper-py" {
   bucket = aws_s3_bucket.hadoop-prototypes-assets.id
   key = "mapreduce/RunLengthMapper.py"
@@ -236,5 +244,15 @@ resource "aws_s3_bucket_object" "run-length-reducer-py" {
   key = "mapreduce/RunLengthReducer.py"
   source = "cluster-files/RunLengthReducer.py"
   etag = filemd5("${path.cwd}/cluster-files/RunLengthReducer.py")
+  content_type = "text/plain"
+}
+
+/* Apache Pig files */
+
+resource "aws_s3_bucket_object" "longer-runs-pig" {
+  bucket = aws_s3_bucket.hadoop-prototypes-assets.id
+  key = "mapreduce/longer_runs.pig"
+  source = "cluster-files/longer_runs.pig"
+  etag = filemd5("${path.cwd}/cluster-files/longer_runs.pig")
   content_type = "text/plain"
 }
